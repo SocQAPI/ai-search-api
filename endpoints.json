@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "platform": "ai-search",
+  "platformName": "AI Search",
+  "baseUrl": "https://api.socq.ai",
+  "creditUsd": 0.005,
+  "endpoints": [
+    {
+      "publicId": "ai-search/llm-mentions",
+      "name": "LLM Mentions API",
+      "description": "Find the AI Overviews and ChatGPT answers that cite a domain or mention a keyword, with the full answer, cited sources and AI search volume.",
+      "method": "POST",
+      "path": "/v1/ai-search/llm-mentions",
+      "payload": "payloads/llm-mentions.json",
+      "launchedAt": "2026-11-17",
+      "price": "40 credits ($0.20) per call + 0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 40,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 100,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/ai-search/llm-mentions",
+      "landingUrl": "https://socq.ai/apis/ai-search/llm-mentions",
+      "required": [],
+      "requiredAnyOf": [
+        [
+          "query"
+        ],
+        [
+          "target"
+        ]
+      ],
+      "mutuallyExclusive": [
+        [
+          "query",
+          "target"
+        ]
+      ],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "language_code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
+          },
+          "location_code": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Search market location code."
+          },
+          "location_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search market location name."
+          },
+          "platform": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "chat_gpt",
+              "google"
+            ],
+            "default": "google",
+            "description": "AI answers to read: google (AI Overviews) or chat_gpt (ChatGPT, tracked for the United States in English)."
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Keyword or brand name to track in AI answers, such as crm software. Give either target or query."
+          },
+          "results_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 100
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Domain to track in AI answers, such as hubspot.com. Give either target or query."
+          }
+        },
+        "required": [],
+        "description": "Provide a domain in target or a keyword in query. Each row is one question answered by AI Overviews or ChatGPT where the domain is cited or the keyword appears, with the full answer, its cited sources and the question's AI search volume. results_limit defaults to 100 and accepts integers from 1 to 1000.",
+        "anyOf": [
+          {
+            "required": [
+              "query"
+            ]
+          },
+          {
+            "required": [
+              "target"
+            ]
+          }
+        ],
+        "allOf": [
+          {
+            "not": {
+              "required": [
+                "query",
+                "target"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "publicId": "ai-search/llm-brand-metrics",
+      "name": "AI Search Visibility API",
+      "description": "Measure how often AI answers mention a domain or keyword, with AI search volume, the most cited source domains and the brands named alongside it.",
+      "method": "POST",
+      "path": "/v1/ai-search/llm-brand-metrics",
+      "payload": "payloads/llm-brand-metrics.json",
+      "launchedAt": "2026-11-17",
+      "price": "40 credits ($0.20) per call + 0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 40,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 41,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/ai-search/llm-brand-metrics",
+      "landingUrl": "https://socq.ai/apis/ai-search/llm-brand-metrics",
+      "required": [],
+      "requiredAnyOf": [
+        [
+          "query"
+        ],
+        [
+          "target"
+        ]
+      ],
+      "mutuallyExclusive": [
+        [
+          "query",
+          "target"
+        ]
+      ],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "language_code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
+          },
+          "location_code": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Search market location code."
+          },
+          "location_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search market location name."
+          },
+          "platform": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "chat_gpt",
+              "google"
+            ],
+            "default": "google",
+            "description": "AI answers to read: google (AI Overviews) or chat_gpt (ChatGPT, tracked for the United States in English)."
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Keyword or brand name to track in AI answers, such as crm software. Give either target or query."
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Domain to track in AI answers, such as hubspot.com. Give either target or query."
+          }
+        },
+        "required": [],
+        "description": "Provide a domain in target or a keyword in query. Rows give the total mentions and AI search volume, then the most cited source domains, the domains in the answers' search results, and, on chat_gpt, the brands and brand categories named alongside it.",
+        "anyOf": [
+          {
+            "required": [
+              "query"
+            ]
+          },
+          {
+            "required": [
+              "target"
+            ]
+          }
+        ],
+        "allOf": [
+          {
+            "not": {
+              "required": [
+                "query",
+                "target"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "publicId": "ai-search/llm-top-mentioned",
+      "name": "LLM Top Sources API",
+      "description": "Rank the ten domains or pages that AI answers cite most for a keyword or domain, by mentions and AI search volume.",
+      "method": "POST",
+      "path": "/v1/ai-search/llm-top-mentioned",
+      "payload": "payloads/llm-top-mentioned.json",
+      "launchedAt": "2026-11-17",
+      "price": "40 credits ($0.20) per call + 0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 40,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 10,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/ai-search/llm-top-mentioned",
+      "landingUrl": "https://socq.ai/apis/ai-search/llm-top-mentioned",
+      "required": [],
+      "requiredAnyOf": [
+        [
+          "query"
+        ],
+        [
+          "target"
+        ]
+      ],
+      "mutuallyExclusive": [
+        [
+          "query",
+          "target"
+        ]
+      ],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "content_type": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "domains",
+              "pages"
+            ],
+            "default": "domains",
+            "description": "Rank whole domains (domains) or single pages (pages)."
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "language_code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
+          },
+          "location_code": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Search market location code."
+          },
+          "location_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search market location name."
+          },
+          "platform": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "chat_gpt",
+              "google"
+            ],
+            "default": "google",
+            "description": "AI answers to read: google (AI Overviews) or chat_gpt (ChatGPT, tracked for the United States in English)."
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Keyword or brand name to track in AI answers, such as crm software. Give either target or query."
+          },
+          "results_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 10
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Domain to track in AI answers, such as hubspot.com. Give either target or query."
+          }
+        },
+        "required": [],
+        "description": "Provide a domain in target or a keyword in query. Rows rank the domains or pages that AI answers on the topic cite most, by mentions, with their AI search volume. results_limit defaults to 10, the maximum.",
+        "anyOf": [
+          {
+            "required": [
+              "query"
+            ]
+          },
+          {
+            "required": [
+              "target"
+            ]
+          }
+        ],
+        "allOf": [
+          {
+            "not": {
+              "required": [
+                "query",
+                "target"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "publicId": "ai-search/google-ai-mode",
+      "name": "Google AI Mode API",
+      "description": "Get the full Google AI Mode answer for a search in Markdown, with every cited source, for any country and language.",
+      "method": "POST",
+      "path": "/v1/ai-search/google-ai-mode",
+      "payload": "payloads/google-ai-mode.json",
+      "launchedAt": "2026-11-17",
+      "price": "2 credits ($0.01) per call",
+      "billing": {
+        "baseCredits": 2,
+        "mode": "fixed"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/ai-search/google-ai-mode",
+      "landingUrl": "https://socq.ai/apis/ai-search/google-ai-mode",
+      "required": [
+        "query"
+      ],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "language_code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
+          },
+          "location_code": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Search market location code."
+          },
+          "location_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search market location name."
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search query, as typed into the search box."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "description": "Provide a search query in query. The result is one row with the full Google AI Mode answer in Markdown and every source it cites."
+      }
+    }
+  ]
+}

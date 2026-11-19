@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "templateVersion": "2.0.0",
+  "kind": "platform",
+  "platform": "ai-search",
+  "endpointCount": 4,
+  "endpoints": [
+    "ai-search/llm-mentions",
+    "ai-search/llm-brand-metrics",
+    "ai-search/llm-top-mentioned",
+    "ai-search/google-ai-mode"
+  ],
+  "landingPage": "https://socq.ai/apis/ai-search",
+  "docsPage": "https://docs.socq.ai/api-manual/ai-search/overview",
+  "generatedFrom": "SocQAPI/socq-example-template"
+}
